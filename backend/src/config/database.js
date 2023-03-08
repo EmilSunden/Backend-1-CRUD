@@ -8,6 +8,8 @@ const {
     DATABASE_HOST, 
     DATABASE_DATABASE } = process.env;
 
+
+
 const config = {
     user: DATABASE_USER,
     password: DATABASE_PASSWORD,
