@@ -6,9 +6,8 @@ const {
     DATABASE_USER, 
     DATABASE_PASSWORD, 
     DATABASE_HOST, 
-    DATABASE_DATABASE } = process.env;
-
-
+    DATABASE_DATABASE 
+} = process.env;
 
 const config = {
     user: DATABASE_USER,
