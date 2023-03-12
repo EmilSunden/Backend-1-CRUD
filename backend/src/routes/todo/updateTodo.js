@@ -3,7 +3,7 @@ const updateTodoRoute = express.Router();
 
 const { updateTodoController } = require('../../controllers/todo/updateTodo');
 
-updateTodoRoute.patch('/todos/:id', updateTodoController);
+updateTodoRoute.patch('/todos', updateTodoController);
 
 module.exports = {
     updateTodoRoute

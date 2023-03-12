@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 
 const { pool } = require('../../config/database');
+const { registerSchema } = require('../../Model/RegisterSchema');
 
 const salt = bcrypt.genSaltSync(10);
 
