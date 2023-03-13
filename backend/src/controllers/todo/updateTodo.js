@@ -2,7 +2,8 @@ const { pool } = require('../../config/database');
 const { patchTodoSchema } = require('../../Model/PatchSchema');
 
 const updateTodoController = (req, res) => {
-    const { description, id } = req.body;
+    const { description } = req.body;
+    const { id } = req.params
 
     const sql = `UPDATE todos SET description = ? WHERE id = ?`;
 

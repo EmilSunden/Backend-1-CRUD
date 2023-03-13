@@ -3,12 +3,10 @@ const bcrypt = require('bcrypt');
 const { pool } = require('../../config/database');
 const { registerSchema } = require('../../Model/RegisterSchema');
 
-const salt = bcrypt.genSaltSync(10);
-
 const registerController = (req, res) => {
     const { username, password } = req.body
 
-    const hashedPassword = bcrypt.hashSync(password, salt);
+    const hashedPassword = bcrypt.hashSync(password, 10);
 
     const sql = 'INSERT INTO users(username, password) VALUES(?, ?)';
 
