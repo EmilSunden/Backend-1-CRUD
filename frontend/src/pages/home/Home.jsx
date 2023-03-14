@@ -1,8 +1,14 @@
-import React from 'react'
+import React from 'react';
+
+import TodoList from '../../components/todolist/TodoList'
 
 const Home = () => {
+
   return (
-    <div>Home</div>
+    <>
+      Hello
+      <TodoList />
+    </>
   )
 }
 

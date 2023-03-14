@@ -4,18 +4,19 @@ dotenv.config();
 
 const { SECRET } = process.env;
 
-const useCookie = async (req, res, next) => {
-  const { token } = req.cookies;
+console.log(SECRET)
 
+const useCookie = async (req, res, next) => {
   try {
-    const loggedInUser = jwt.verify(token, SECRET);
+    const { authToken } = await req.cookies;
+    const loggedInUser = jwt.verify(authToken, SECRET);
     req.loggedInUser = loggedInUser;
     next();
   } catch (error) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({ message: 'Something went wrongg' })
   }
 };
 
 module.exports = {
-  useCookie,
+  useCookie
 };
