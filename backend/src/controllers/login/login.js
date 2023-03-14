@@ -6,7 +6,6 @@ const dotenv = require('dotenv');
 dotenv.config()
 
 const { SECRET } = process.env;
-console.log(SECRET)
 
 const { pool } = require('../../config/database');
 
@@ -25,7 +24,6 @@ const loginController = (req, res) => {
 
             if (correctPassword) {
                 const token = jwt.sign({ username }, SECRET, { expiresIn: '1h' })
-                console.log(token)
                 
                 res.cookie('token', token, {
                     httpOnly: true,

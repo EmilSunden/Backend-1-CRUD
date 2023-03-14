@@ -10,7 +10,6 @@ const useCookie = async (req, res, next) => {
   try {
     const loggedInUser = jwt.verify(token, SECRET);
     req.loggedInUser = loggedInUser;
-    console.log(req.loggedInUser)
     next();
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' })
