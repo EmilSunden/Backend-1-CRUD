@@ -1,22 +1,26 @@
-const { pool } = require('../../config/database');
-const { patchTodoSchema } = require('../../Model/PatchSchema');
+const { pool } = require("../../config/database");
+const { patchTodoSchema } = require("../../Model/PatchSchema");
 
 const updateTodoController = (req, res) => {
-    const { description } = req.body;
-    const { id } = req.params
+  const { description } = req.body;
+  const { id } = req.params;
 
-    const sql = `UPDATE todos SET description = ? WHERE id = ?`;
+  const validation = patchTodoSchema.validate(req.body);
+  if (validation.error) {
+    return res.status(400).json(validation.error.details[0].message);
+  }
 
-    pool.execute(sql, [description, id], (error, rows) => {
-        if (error) {
-            res.sendStatus(500)
-        } else {
-            res.status(200).send(rows)
-        }
-    })
+  const sql = `UPDATE todos SET description = ? WHERE id = ?`;
 
+  pool.execute(sql, [description, id], (error, rows) => {
+    if (error) {
+      res.sendStatus(500);
+    } else {
+      res.status(200).send(rows);
+    }
+  });
 };
 
 module.exports = {
-    updateTodoController
-}
+  updateTodoController,
+};

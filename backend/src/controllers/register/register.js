@@ -1,25 +1,30 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
-const { pool } = require('../../config/database');
-// const { registerSchema } = require('../../Model/RegisterSchema');
+const { pool } = require("../../config/database");
+const { registerSchema } = require("../../Model/RegisterSchema");
 
-const salt = bcrypt.genSaltSync(10)
+const salt = bcrypt.genSaltSync(10);
 
 const registerController = (req, res) => {
-    const { username, password } = req.body
+  const { username, password } = req.body;
 
-    const hashedPassword = bcrypt.hashSync(password, salt);
+  const validation = registerSchema.validate(req.body);
 
-    const sql = 'INSERT INTO users(username, password) VALUES(?, ?)';
+  if (validation.error) {
+    return res.status(400).json(validation.error.details[0].message);
+  }
 
-    pool.execute(sql, [username, hashedPassword], (error, rows) => {
-        if (error) {
-            res.sendStatus(500);
-        } else 
-        res.json(rows);
-    })
+  const hashedPassword = bcrypt.hashSync(password, salt);
+
+  const sql = "INSERT INTO users(username, password) VALUES(?, ?)";
+
+  pool.execute(sql, [username, hashedPassword], (error, rows) => {
+    if (error) {
+      res.sendStatus(500);
+    } else res.json(rows);
+  });
 };
 
 module.exports = {
-    registerController
-}
+  registerController,
+};
