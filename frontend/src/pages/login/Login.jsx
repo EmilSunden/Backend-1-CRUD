@@ -7,21 +7,31 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loggedInUser = fetch("http://localhost:5000/login", {
+    try {
+      const response = await fetch('http://localhost:5000/login', {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({ username, password }),
+      credentials: 'include'
     });
-    return loggedInUser;
+    if (response.ok) {
+      console.log(`Logged in as ${username}`)
+      navigate('/');
+    } else {
+      throw new Error('Login failed')
+    }
+    } catch (error) {
+      console.error(error)
+    }
   }
-// TODO: REDIRECT ON LOGIN;
+
   return (
-    <form onClick={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <label>
         <span>Username</span>
         <input 
@@ -39,7 +49,7 @@ const Login = () => {
         value={password}
         />
       </label>
-      <button>Login</button>
+      <button type="submit">Login</button>
     </form>
   )
 }

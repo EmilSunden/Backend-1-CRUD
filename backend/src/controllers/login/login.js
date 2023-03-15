@@ -9,6 +9,7 @@ const { pool } = require('../../config/database');
 
 const loginController = (req, res) => {
     const { username, password } = req.body;
+    console.log(req.body)
 
     const getUser = 'SELECT username, password FROM users WHERE username = ?';
 

@@ -1,20 +1,12 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
 
-const TodoList = ({ todo }) => {
-    const [todos, setTodos] = useState();
-
-   useEffect(() => {
-    // const data = fetch('http://localhost:5000/todos');
-    
-   })
-
-  //  TODO: FIX 500 error on GET
-
+const TodoList = ({ todos }) => {
   return (
-    <div>
-        todos
-    </div>
+    <ul>
+      {todos.map(todo => (
+        <li key={todo.id}>{todo.description}</li>
+      ))}
+    </ul>
   )
 }
 

@@ -1,28 +1,36 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const registeredUser = fetch("http://localhost:5000/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    });
-    return registeredUser;
+    try {
+      const response = await fetch('http://localhost:5000/register', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({username, password})
+      });
+      if (response.ok) {
+        navigate('/')
+      } else {
+        throw new Error('Registration failed')
+      }
+    } catch (error) {
+      console.error(error)
+    }
   };
   // TODO: REDIRECT ON REGISTER
 
   return (
-    <form onClick={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <label>
         <span>Username</span>
         <input

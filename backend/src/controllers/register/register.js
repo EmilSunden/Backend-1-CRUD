@@ -7,22 +7,25 @@ const salt = bcrypt.genSaltSync(10);
 
 const registerController = (req, res) => {
   const { username, password } = req.body;
-
+  
   const validation = registerSchema.validate(req.body);
 
+  console.log(req.body)
   if (validation.error) {
-    return res.status(400).json(validation.error.details[0].message);
+    console.log(validation.error.details[0].message)
+    return res.status(400).json(validation.error.details[0].message)
+  } else {
+    const hashedPassword = bcrypt.hashSync(password, salt);
+
+    const sql = "INSERT INTO users(username, password) VALUES(?, ?)";
+  
+    pool.execute(sql, [username, hashedPassword], (error, rows) => {
+      if (error) {
+        res.sendStatus(500);
+      } else res.json(rows);
+    });
   }
 
-  const hashedPassword = bcrypt.hashSync(password, salt);
-
-  const sql = "INSERT INTO users(username, password) VALUES(?, ?)";
-
-  pool.execute(sql, [username, hashedPassword], (error, rows) => {
-    if (error) {
-      res.sendStatus(500);
-    } else res.json(rows);
-  });
 };
 
 module.exports = {
