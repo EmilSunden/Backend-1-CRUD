@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
-const TodoForm = ({ onAddTodo }) => {
+const CreateTodo = ({ onAddTodo }) => {
     const [description, setDescription] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         const newTodo = { description };
         try {
-            // debugger;
             const response = await fetch('http://localhost:5000/todos', {
                 method: 'POST',
                 'credentials': 'include',
@@ -40,4 +39,4 @@ const TodoForm = ({ onAddTodo }) => {
   )
 }
 
-export default TodoForm
+export default CreateTodo

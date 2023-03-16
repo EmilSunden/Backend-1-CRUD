@@ -3,7 +3,6 @@ const { createTodoSchema } = require("../../Model/CreateSchema");
 
 const addTodoController = (req, res) => {
   const { description } = req.body;
-  console.log(description)
 
   const validation = createTodoSchema.validate(req.body);
   if (validation.error) {
@@ -14,7 +13,6 @@ const addTodoController = (req, res) => {
 
   pool.execute(sql, [req.loggedInUser.userId, description], (error, rows) => {
     if (error) {
-      console.log('Something went wrong!', error.message)
       res.sendStatus(500);
     } else {
       res.json(rows);

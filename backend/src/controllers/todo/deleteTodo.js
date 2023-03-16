@@ -8,7 +8,6 @@ const deleteTodoController = (req, res) => {
 
     pool.execute(sql, [id], (error, rows) => {
         if (error) {
-            console.log("Something went wrong", error.message);
             res.sendStatus(500)
         } else if (rows.length === 0) {
             res.status(404).json({message: "Todo not found"})
@@ -21,7 +20,7 @@ const deleteTodoController = (req, res) => {
                     console.log("Something went wrong", error.message)
                     res.sendStatus(500);
                 } else {
-                    res.status(200).json({ message: "Todo deleted successfully" })
+                    res.status(200).send(rows)
                 }
             })
         }

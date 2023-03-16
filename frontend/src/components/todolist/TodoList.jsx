@@ -1,22 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import TodoDetails from "./TodoDetails";
-
-
 const TodoList = ({ todos }) => {
   return (
-    <>
-      <ul>
-        {todos.map((item) => (
-          <li key={item.id}>
-            {/* <Link to={`http://localhost:5000/todos/${item.id}`}>{item.description}</Link> */}
-            <TodoDetails />
-          </li>
-        ))}
-      </ul>
-    </>
+   <div className="todo-list">
+      {todos.map(todo => (
+        <div key={todo.id} className="todo-preview">
+          <Link to={`/todos/${todo.id}`}>
+            <p>{todo.description}</p>
+          </Link>
+        </div>
+      ))} 
+   </div>
   );
 };
 
 export default TodoList;
+
+

@@ -29,8 +29,6 @@ const loginController = (req, res, next) => {
     const token = jwt.sign({ userId: user.id}, SECRET, { expiresIn: '1d' });
     res.cookie('authToken', token, {
         httpOnly: true,
-        // sameSite: 'none',
-        // secure: true,
         maxAge: 30 * 24 * 60 * 60 * 1000,
         credentials: true
     })

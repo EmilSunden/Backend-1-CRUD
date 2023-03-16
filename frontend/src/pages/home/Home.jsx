@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import TodoList from "../../components/todolist/TodoList";
-import TodoForm from "../../components/todolist/TodoForm";
+import CreateTodo from "../../components/todolist/CreateTodo";
 
 const Home = () => {
   const [todos, setTodos] = useState([]);
@@ -29,7 +29,7 @@ const Home = () => {
   return (
     <div>
       <h1>Todos:</h1>
-      <TodoForm onAddTodo={addTodo} />
+      <CreateTodo onAddTodo={addTodo} />
       <TodoList todos={todos}/>
     </div>
   );

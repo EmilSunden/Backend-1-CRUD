@@ -1,33 +1,53 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 const TodoDetails = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [todo, setTodo] = useState([])
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [todo, setTodo] = useState([]);
 
-    useEffect(() => {
-        const fetchTodo = async () => {
-            const response = await fetch(`http://localhost:5000/todos/${id}`, {
-                'credentials': 'include'
-            });
-            console.log(response)
-            const data = await response.json();
-            console.log(data)
-            setTodo(data)
-        }
-        fetchTodo()
-    }, [])
+  useEffect(() => {
+    const fetchTodo = async () => {
+      const response = await fetch(`http://localhost:5000/todos/${id}`, {
+        credentials: "include",
+      });
+      const data = await response.json();
+      setTodo(data);
+    };
+    fetchTodo();
+  }, []);
+
+  const deleteTodo = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/todos/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (response.ok) {
+        navigate("/");
+      } else {
+        throw new Error("Failed to DELETE")
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  const handleClick = () => {
+    deleteTodo();
+  };
 
   return (
-    <div>
-        id - {todo && todo.map(item => (
-            <div key={item.description}>
-                <p><Link to={`http://localhost:5000/todos/${id}`}>{item.description}</Link></p>
-            </div>
+    <div className="todo-details">
+      {todo &&
+        todo.map((item) => (
+          <div key={item.description}>
+            <p>{item.description}</p>
+            <button onClick={handleClick}>Delete</button>
+          </div>
         ))}
     </div>
-  )
-}
+  );
+};
 
-export default TodoDetails
+export default TodoDetails;

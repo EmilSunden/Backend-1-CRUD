@@ -13,15 +13,10 @@ const updateTodoController = (req, res) => {
 
   const loggedInUserId = req.loggedInUser.userId;
 
-  console.log("description: ", description)
-  console.log("todoId:", todoId )
-  console.log("loggedInUserId:", loggedInUserId)
-
   const sql = `UPDATE todos SET description = ? WHERE id = ? AND user_id = ?`;
 
   pool.execute(sql, [description, todoId , loggedInUserId], (error, rows) => {
     if (error) {
-      console.log("Something went wrong!", error.message);
       res.sendStatus(500);
     } else if (rows.affectedRows === 0) {
       res.status(404).send("Todo not found")
