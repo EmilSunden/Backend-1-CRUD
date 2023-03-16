@@ -2,23 +2,33 @@ const { pool } = require("../../config/database");
 const { patchTodoSchema } = require("../../Model/PatchSchema");
 
 const updateTodoController = (req, res) => {
+  const todoId = req.params.id;
   const { description } = req.body;
-  const { id } = req.params;
 
   const validation = patchTodoSchema.validate(req.body);
+
   if (validation.error) {
     return res.status(400).json(validation.error.details[0].message);
-  }
+  };
 
-  const sql = `UPDATE todos SET description = ? WHERE id = ?`;
+  const loggedInUserId = req.loggedInUser.userId;
 
-  pool.execute(sql, [description, id], (error, rows) => {
+  console.log("description: ", description)
+  console.log("todoId:", todoId )
+  console.log("loggedInUserId:", loggedInUserId)
+
+  const sql = `UPDATE todos SET description = ? WHERE id = ? AND user_id = ?`;
+
+  pool.execute(sql, [description, todoId , loggedInUserId], (error, rows) => {
     if (error) {
+      console.log("Something went wrong!", error.message);
       res.sendStatus(500);
+    } else if (rows.affectedRows === 0) {
+      res.status(404).send("Todo not found")
     } else {
-      res.status(200).send(rows);
+      res.json(rows)
     }
-  });
+  })
 };
 
 module.exports = {

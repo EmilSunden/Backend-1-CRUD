@@ -7,10 +7,12 @@ const TodoForm = ({ onAddTodo }) => {
         e.preventDefault()
         const newTodo = { description };
         try {
+            // debugger;
             const response = await fetch('http://localhost:5000/todos', {
                 method: 'POST',
+                'credentials': 'include',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(newTodo)
             });

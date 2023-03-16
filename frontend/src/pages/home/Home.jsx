@@ -8,25 +8,29 @@ const Home = () => {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    const fetchTodos = async (url) => {
-      const response = await fetch(url);
+    const fetchTodos = async () => {
+      const response = await fetch("http://localhost:5000/todos", {
+        'credentials': 'include'
+      });
       const data = await response.json();
       setTodos(data);
     };
-    fetchTodos("http://localhost:5000/todos");
+    fetchTodos();
   }, []);
 
   const addTodo = async () => {
-    const response = await fetch('http://localhost:5000/todos');
+    const response = await fetch('http://localhost:5000/todos', {
+      'credentials': 'include'
+    });
     const data = await response.json();
     setTodos(data)
-  }
+  };
 
   return (
     <div>
       <h1>Todos:</h1>
       <TodoForm onAddTodo={addTodo} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos}/>
     </div>
   );
 };

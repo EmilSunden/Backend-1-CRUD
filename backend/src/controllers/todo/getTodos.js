@@ -1,14 +1,15 @@
 const { pool } = require('../../config/database');
 
 const getTodosController = (req, res) => {
-    const getTodos = `SELECT * from todos`;
-
-    pool.execute(getTodos, (error, rows) => {
+    console.log('Hello from inside get todos')
+    const userId = req.loggedInUser.userId;
+    const sql = `SELECT id, description FROM todos WHERE user_id = ?`;
+    pool.execute(sql, [userId], (error, rows) => {
         if (error) {
-            // res.status(500).send(error)
+            console.log('Something went wrong!', error.message)
             res.sendStatus(500)
         } else if (rows.length === 0) {
-            // res.status(404).send('No todos found!')
+            console.log("Couldn't find any todos")
             res.sendStatus(404)
         } else {
             res.json(rows)

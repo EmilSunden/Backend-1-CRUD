@@ -22,11 +22,11 @@ const { updateTodoRoute } = require('./routes/todo/updateTodo');
 app.use('/', registerRoute);
 app.use('/', loginRoute);
 
-app.use('/', addTodoRoute);
-app.use('/', getTodosRoute); // add useCookie once finished testing
-app.use('/', getTodoRoute);
-app.use('/', deleteTodoRoute);
-app.use('/', updateTodoRoute);
+app.use('/', useCookie, addTodoRoute);
+app.use('/', useCookie, getTodosRoute); 
+app.use('/', useCookie, getTodoRoute);
+app.use('/', useCookie, deleteTodoRoute);
+app.use('/', useCookie, updateTodoRoute);
 
 app.listen(5000, () => {
     console.log('Backend is running on http://localhost:5000');

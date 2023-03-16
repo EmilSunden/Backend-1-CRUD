@@ -27,7 +27,6 @@ const Register = () => {
       console.error(error)
     }
   };
-  // TODO: REDIRECT ON REGISTER
 
   return (
     <form onSubmit={handleSubmit}>

@@ -10,9 +10,9 @@ const addTodoController = (req, res) => {
     return res.status(400).json(validation.error.details[0].message);
   }
 
-  const sql = `INSERT INTO todos (description) VALUES (?)`;
+  const sql = `INSERT INTO todos (user_id, description) VALUES (?, ?)`;
 
-  pool.execute(sql, [description], (error, rows) => {
+  pool.execute(sql, [req.loggedInUser.userId, description], (error, rows) => {
     if (error) {
       console.log('Something went wrong!', error.message)
       res.sendStatus(500);
