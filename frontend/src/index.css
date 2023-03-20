@@ -7,6 +7,17 @@
   color: #333;
 }
 
+.navbar {
+  display: flex;
+  list-style-type: none;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.navbar a {
+  text-decoration: none;
+}
+
 .content {
     max-width: 720px;
     margin: 0 auto;
@@ -18,6 +29,9 @@
 
 /* todo previews / list */
 .todo-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 16px;
     margin: 20px 0;
     border-bottom: 1px solid #fafafa;
@@ -44,3 +58,24 @@
     cursor: pointer;
     margin-left: 1rem;
   }
+
+form {
+  background: #e06161;
+  border-radius: 8px;
+  max-width: fit-content;
+  padding: 2rem 2rem;
+  margin: 0 auto;
+}
+
+form, label, input {
+  display: block;
+}
+
+form > button {
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+form > button:hover {
+  cursor: pointer;
+}

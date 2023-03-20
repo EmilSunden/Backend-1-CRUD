@@ -10,9 +10,12 @@ const Home = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       const response = await fetch("http://localhost:5000/todos", {
-        'credentials': 'include'
+        credentials: 'include'
       });
-      const data = await response.json();
+      if(!response.ok) {
+        throw new Error(`There are no todos to fetch!`)
+      }
+      const data = await response.json();  
       setTodos(data);
     };
     fetchTodos();
@@ -20,7 +23,7 @@ const Home = () => {
 
   const addTodo = async () => {
     const response = await fetch('http://localhost:5000/todos', {
-      'credentials': 'include'
+      credentials: 'include'
     });
     const data = await response.json();
     setTodos(data)
@@ -30,7 +33,7 @@ const Home = () => {
     <div>
       <h1>Todos:</h1>
       <CreateTodo onAddTodo={addTodo} />
-      <TodoList todos={todos}/>
+      {todos && <TodoList todos={todos}/>} 
     </div>
   );
 };
