@@ -20,7 +20,6 @@ const Login = () => {
       credentials: 'include'
     });
     if (response.ok) {
-      console.log(`Logged in as ${username}`)
       navigate('/');
     } else {
       throw new Error('Login failed')

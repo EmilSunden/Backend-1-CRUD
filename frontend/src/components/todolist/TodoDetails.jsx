@@ -52,7 +52,6 @@ const TodoDetails = () => {
         credentials: "include",
       });
       if (response.ok) {
-        // Redirect to the updated todo details page
         navigate('/');
       } else {
         throw new Error("Failed to PATCH");

@@ -1,9 +1,10 @@
-const { pool } = require('../../config/database');
+const { pool } = require("../../config/database");
 
-const getTodosController = (req, res) => {
+const getFriendsController = (req, res) => {
     const userId = req.loggedInUser.userId;
-    const sql = `SELECT id, description FROM todos WHERE user_id = ?`;
+    const sql = `select friendname from friends where user_id=?`
     pool.execute(sql, [userId], (error, rows) => {
+        console.log(rows)
         if (error) {
             res.sendStatus(500)
         } else if (rows.length === 0) {
@@ -12,8 +13,8 @@ const getTodosController = (req, res) => {
             res.json(rows)
         }
     })
-};
+}
 
 module.exports = {
-    getTodosController
+    getFriendsController
 }

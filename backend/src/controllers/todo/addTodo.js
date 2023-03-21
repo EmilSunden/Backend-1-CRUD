@@ -23,3 +23,5 @@ const addTodoController = (req, res) => {
 module.exports = {
   addTodoController,
 };
+
+// friends tabell coming up

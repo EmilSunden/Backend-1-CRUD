@@ -18,6 +18,7 @@ const { getTodosRoute } = require('./routes/todo/getTodos');
 const { getTodoRoute } = require('./routes/todo/getTodo');
 const { deleteTodoRoute } = require('./routes/todo/deleteTodo');
 const { updateTodoRoute } = require('./routes/todo/updateTodo');
+const { friendRoute } = require('./routes/friends/friendsRoute');
 
 app.use('/', registerRoute);
 app.use('/', loginRoute);
@@ -27,6 +28,10 @@ app.use('/', useCookie, getTodosRoute);
 app.use('/', useCookie, getTodoRoute);
 app.use('/', useCookie, deleteTodoRoute);
 app.use('/', useCookie, updateTodoRoute);
+
+app.use('/', useCookie, friendRoute)
+
+
 
 app.listen(5000, () => {
     console.log('Backend is running on http://localhost:5000');
