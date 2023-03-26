@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 
 const FriendsTodos = () => {
   const [todos, setTodos] = useState([]);
@@ -12,9 +11,7 @@ const FriendsTodos = () => {
         },
         credentials: "include",
       });
-      console.log(response)
       const data = await response.json();
-      console.log(data)
       setTodos(data);
     };
     fetchTodo();

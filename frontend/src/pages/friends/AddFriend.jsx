@@ -17,12 +17,10 @@ const AddFriend = () => {
                 credentials: 'include',
                 body: JSON.stringify(newFriend)
             });
-            console.log(response)
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`)
             } 
             const data = await response.json();
-            console.log(data)
             setFriend(data);
             navigate('/friends/todos')
         } catch (error) {
