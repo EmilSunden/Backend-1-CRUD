@@ -1,19 +1,28 @@
 const { pool } = require("../../config/database");
 
 const addFriendController = (req, res) => {
-    const { friend } = req.body;    
+    const { friend } = req.body;   
+    
+    // find the friend in the users table
+    const findFriend = `SELECT id, username FROM users WHERE username=?`
    
-    const sql = `INSERT INTO friends(user_id, friendname) VALUES(?, ?)`;
+    // add friend to friends table if friend exists
+    const addFriend = `INSERT INTO friends(user_id, friendname) VALUES(?, ?)`;
 
-    pool.execute(sql, [req.loggedInUser.userId, friend], (error, rows) => {
-        console.log('Logged in user:', req.loggedInUser.userId)
-        if (error) {
-            console.log(error.message)
-          res.status(500).send('User already added!');
-        } else {
-          res.json(rows);
-        }
-      });
+    pool.query(findFriend, [friend], (error) => {
+      if (error) {
+        res.sendStatus(500)
+      } else {
+        pool.query(addFriend, [req.loggedInUser.userId, friend], (error, rows) => {
+          if (error) {
+            res.sendStatus(500);
+          } else {
+            console.log('Logged in user:', req.loggedInUser.userId)
+            res.json(rows).status(200)
+          }
+        })
+      }
+    })
 }
 
 module.exports = {

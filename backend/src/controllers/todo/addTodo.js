@@ -24,4 +24,3 @@ module.exports = {
   addTodoController,
 };
 
-// friends tabell coming up

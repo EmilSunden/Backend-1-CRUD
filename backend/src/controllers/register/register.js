@@ -1,14 +1,14 @@
 const bcrypt = require("bcrypt");
 
 const { pool } = require("../../config/database");
-const { registerSchema } = require("../../Model/RegisterSchema");
+const { authSchema } = require("../../Model/AuthSchema")
 
 const salt = bcrypt.genSaltSync(10);
 
 const registerController = async (req, res) => {
   const { username, password } = req.body;
 
-  const validation = registerSchema.validate(req.body);
+  const validation = authSchema.validate(req.body);
 
   if (validation.error) {
     return res.status(400).json(validation.error.details[0].message)
@@ -25,7 +25,7 @@ const registerController = async (req, res) => {
           if (error) {
             res.sendStatus(500);
           } else [
-            res.json('Successfully registered!')
+            res.json('Successfully registered!').send(rows)
           ]
         })
       ]

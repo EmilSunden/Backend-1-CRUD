@@ -3,12 +3,9 @@ const friendRoute = express.Router();
 
 const {  addFriendController } = require('../../controllers/friends/addFriend'); // post
 const { getFriendsController } = require('../../controllers/friends/getFriend'); // get
-const { getFriendsTodoController } = require('../../controllers/todo/getFriendsTodo');
 
-
-friendRoute.post('/friends',  addFriendController)
-friendRoute.get('/friends',  getFriendsController)
-friendRoute.get('/friends/todos', getFriendsTodoController)
+friendRoute.post('/friend', addFriendController)
+friendRoute.get('/friends/todos', getFriendsController)
 
 module.exports = {
     friendRoute
