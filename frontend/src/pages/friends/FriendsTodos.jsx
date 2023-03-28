@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const FriendsTodos = () => {
   const [todos, setTodos] = useState([]);
@@ -24,6 +25,7 @@ const FriendsTodos = () => {
             <p>{item.username} - {item.description}</p>
           </div>
         ))}
+    <Link to="/">Home</Link>
     </div>
   );
 

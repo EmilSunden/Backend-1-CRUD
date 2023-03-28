@@ -1,8 +1,15 @@
 const { pool } = require("../../config/database");
+const { addFriendSchema } = require('../../Model/FriendSchema');
 
 const addFriendController = (req, res) => {
     const { friend } = req.body;   
     
+    const validation = addFriendSchema.validate(req.body);
+
+    if (validation.error) {
+      return res.status(400).json(validation.error.details[0].message)
+    }
+
     // find the friend in the users table
     const findFriend = `SELECT id, username FROM users WHERE username=?`
    
