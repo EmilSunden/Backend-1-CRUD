@@ -28,7 +28,6 @@ app.use('/', useCookie, getTodosRoute);
 app.use('/', useCookie, getTodoRoute);
 app.use('/', useCookie, deleteTodoRoute);
 app.use('/', useCookie, updateTodoRoute);
-
 app.use('/', useCookie, friendRoute)
 
 
